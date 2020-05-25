@@ -8,9 +8,18 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import styled from 'styled-components'
 
+import {GlobalStyle} from "../theme/global-style"
 import Header from "./header"
-import "./layout.css"
+
+const LandingPage = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-image: url('https://i.imgur.com/NK6PNZN.jpg');
+  background-position: center;
+  background-size: cover;
+`
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,7 +33,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <LandingPage>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
@@ -33,14 +42,10 @@ const Layout = ({ children }) => {
           padding: `0 1.0875rem 1.45rem`,
         }}
       >
+        <GlobalStyle />
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
       </div>
-    </>
+    </LandingPage>
   )
 }
 
