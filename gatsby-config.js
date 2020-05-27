@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: `Food Blog`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `If you are a food lover searching for new tastes you have come to the right place!`,
+    author: `Sebastian Wesołowski`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -12,6 +12,20 @@ module.exports = {
         name: `images`,
         path: `${__dirname}/src/images`,
       },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdowns`,
+        path: `${__dirname}/src/markdown-pages/recipes`,
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdowns`,
+        path: `${__dirname}/src/markdown-pages/travel`,
+      }
     },
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-remark`,

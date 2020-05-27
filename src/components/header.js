@@ -1,12 +1,13 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-
-import Recipes from '../assets/recipes.svg'
-import FoodBlogLogo from '../assets/foodblog.svg'
-import Travel from '../assets/travel.svg'
-
 import styled from "styled-components"
+
+import Recipes from "../assets/recipes.svg"
+import Travel from "../assets/travel.svg"
+import SmallLogo from "../assets/small-logo.svg"
+
+import {colors} from '../utils/colors';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -23,7 +24,7 @@ const BlogLogo = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 135px;
-  height: 75px;
+  height: 70px;
 `
 
 const BlogRef = styled.div`
@@ -36,7 +37,7 @@ const BlogRef = styled.div`
 const BlogLink = styled(Link)`
   text-decoration: none;
   font-size: 18px;
-  color: #000000;
+  color: ${colors.dark};
 `
 
 const Header = ({ siteTitle }) => (
@@ -48,8 +49,8 @@ const Header = ({ siteTitle }) => (
       </BlogLink>
     </BlogRef>
     <BlogLogo>
-      <FoodBlogLogo />
-      <BlogLink style={{fontSize: `24px`}}>
+      <SmallLogo />
+      <BlogLink to="/" style={{fontSize: `24px`}}>
         {siteTitle}
       </BlogLink>
     </BlogLogo>
