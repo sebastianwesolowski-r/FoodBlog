@@ -9,6 +9,8 @@ import Header from "./header"
 const Page = styled.div`
   width: 100%;
   height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-position: center;
   background-size: cover;
 `

@@ -17,14 +17,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdowns`,
-        path: `${__dirname}/src/markdown-pages/recipes`,
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `markdowns`,
-        path: `${__dirname}/src/markdown-pages/travel`,
+        path: `${__dirname}/src/markdown-pages`,
       }
     },
     `gatsby-plugin-styled-components`,
@@ -32,12 +25,26 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 400,
+              maxHeight: 250,
+            },
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Food Blog`,
+        short_name: `Food Blog`,
         start_url: `/`,
-        background_color: `#663399`,
+        background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
