@@ -1,1 +1,1 @@
-Food Blog site using Gatsby js with styled components
+Food Blog site using GatsbyJS with styled components
