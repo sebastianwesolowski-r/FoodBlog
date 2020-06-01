@@ -1,16 +1,17 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 import styled from "styled-components"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Splash from "../components/splash"
+import {Travel, TravelDescription} from "../components/travel-styled"
+import PageBackground from "../components/page-background"
 
 import FbIcon from "../assets/fb.svg"
 import IgIcon from "../assets/ig.svg"
 import TtIcon from "../assets/tt.svg"
 import YtIcon from "../assets/yt.svg"
-import landingImage from '../images/landing-image.jpg'
 
 import {colors} from '../utils/colors';
 
@@ -20,6 +21,7 @@ const Greeting = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 125px;
+  text-align: center;
 `
 
 const RecipesButton = styled(Link)`
@@ -48,23 +50,59 @@ const BlogFooter = styled.div`
   justify-content: space-between;
   width: 180px;
   height: 22px;
-  position: absolute;
-  bottom: 35px;
+  position: relative;
+  top: 100px;
   left: 0;
   right: 0;
   margin: auto;
+  @media (max-width: 800px) {
+    top: 0;
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
 `
 
-const IndexPage = () => (
+const PreviewPosts = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 62%;
+  margin: auto;
+  margin-top: 80px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    width: fit-content;
+    margin-top: 40px;
+  }
+`
+
+const IndexPage = ({data}) => (
   <>
     <Splash />
-    <Layout img={landingImage}>
+    <PageBackground image={data.file.childImageSharp.fluid} />
+    <Layout>
     <SEO title="Home" />
       <Greeting>
         <div style={{fontSize: `21px`}}>Welcome to <span style={{color: `#842B2B`}}>Food Blog</span></div>
         <div style={{fontSize: `17px`}}>If you are a food lover searching for new tastes you have come to the right place!</div>
         <RecipesButton to="/recipes">browse recipes</RecipesButton>
       </Greeting>
+      <PreviewPosts>
+        {data.allMarkdownRemark.edges.filter((item, idx) => idx > 1).map(({node}) => (
+            node.frontmatter.category === "travel" ? (
+                <Link to={node.fields.slug}  key={node.id} style={{color: `unset`, textDecoration: `none`}}>
+                    <Travel>
+                        <img src={node.frontmatter.banner.publicURL} alt={node.frontmatter.title}/>
+                        <TravelDescription>
+                            <p>{node.frontmatter.title}</p>
+                            <p style={{fontSize: `13px`, fontWeight: `400`, marginTop: `5px`, textAlign: `center`}}>{node.frontmatter.description}</p>
+                        </TravelDescription>
+                    </Travel>
+                </Link>
+            ) : null
+        ))
+        }
+      </PreviewPosts>
       <BlogFooter>
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
           <FbIcon />
@@ -84,3 +122,34 @@ const IndexPage = () => (
 )
 
 export default IndexPage
+
+export const query = graphql`
+    query {
+        allMarkdownRemark {
+            edges {
+            node {
+                id
+                frontmatter {
+                    title
+                    category
+                    description
+                    banner {
+                        publicURL
+                    }
+                }
+                fields {
+                    slug
+                }
+            }
+            }
+        }
+        file(relativePath:{eq: "landing-image.jpg"}) {
+          id
+          childImageSharp {
+            fluid(quality: 100) {
+                ...GatsbyImageSharpFluid
+            }
+          }
+      }
+    }
+`

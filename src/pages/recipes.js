@@ -1,55 +1,16 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import styled from "styled-components"
-
-import recipesImage from "../images/recipes-image.jpg"
 
 import Layout from "../components/layout"
-
-import {colors} from "../utils/colors"
-
-const PageHeader = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
-
-const RecipesContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    flex: auto;
-    width: 85%;
-    margin: 70px auto;
-    &::after {
-        content: '';
-        flex: 0 0 32%;
-        max-width: 390px;
-    }
-`
-
-const Recipe = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    width: 340px;
-    height: 300px;
-    font-size: 15px;
-    font-weight: 500;
-    margin: 0 25px;
-    margin-bottom: 30px;
-    img {
-        width: 340px;
-        height: 250px;
-        border: 1px solid ${colors.primary}
-    }
-`
+import {PageHeader} from "../components/page-header"
+import {RecipesContainer, Recipe} from "../components/recipes-styled"
+import PageBackground from "../components/page-background"
 
 const RecipesPage = ({data}) => {
+    console.log(data.allMarkdownRemark)
     return (
-        <Layout img={recipesImage}>
+        <Layout>
+            <PageBackground image={data.file.childImageSharp.fluid} />
             <PageHeader>
                 <div style={{fontSize: `17px`}}>here you can find the perfect recipes for delicious food</div>
             </PageHeader>
@@ -89,6 +50,14 @@ export const query = graphql`
                     slug
                 }
             }
+            }
+        }
+        file(relativePath:{eq: "recipes-image.jpg"}) {
+            id
+            childImageSharp {
+              fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid
+              }
             }
         }
     }

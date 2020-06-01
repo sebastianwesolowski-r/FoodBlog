@@ -1,10 +1,10 @@
 ---
 title: Classic Lasagna
 category: recipes
-banner: "../../images/classic-lasagna.jpg"
+banner: "../../images/classic-lasagnaa.jpg"
 ---
 
-![Classic Lasagna](../../images/classic-lasagna.jpg)
+![Classic Lasagna](../../images/classic-lasagnaa.jpg)
 
 ### Ingrediens
 

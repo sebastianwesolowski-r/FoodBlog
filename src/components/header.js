@@ -16,6 +16,9 @@ const StyledHeader = styled.header`
   width: 100%;
   height: 100px;
   padding: 0 25%;
+  @media (max-width: 800px) {
+    padding: 0 4%;
+  }
 `
 
 const BlogLogo = styled.div`

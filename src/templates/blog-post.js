@@ -1,11 +1,11 @@
 import React from "react"
 import {graphql} from "gatsby"
-import Layout from "../components/layout"
 import styled from "styled-components"
 
-import {colors} from "../utils/colors"
+import Layout from "../components/layout"
+import PageBackground from "../components/page-background"
 
-import postImage from "../images/recipes-image.jpg"
+import {colors} from "../utils/colors"
 
 const PostPage = styled.div`
     display: flex;
@@ -51,12 +51,19 @@ const PostPage = styled.div`
             margin: 20px 0;
         }
     }
+    @media (max-width: 800px) {
+        width: 95%;
+        section img {
+            width: 100%;
+        }
+    }
 `
 
 export default ({data}) => {
     const post = data.markdownRemark;
     return (
-        <Layout img={postImage}>
+        <Layout>
+            <PageBackground image={data.file.childImageSharp.fluid} />
             <PostPage>
                 <h2>{post.frontmatter.title}</h2>
                 <section dangerouslySetInnerHTML={{__html: post.html}}></section>
@@ -71,6 +78,14 @@ export const query = graphql`
             html
             frontmatter {
                 title
+            }
+        }
+        file(relativePath:{eq: "travel-image.jpg"}) {
+            id
+            childImageSharp {
+              fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid
+              }
             }
         }
     }

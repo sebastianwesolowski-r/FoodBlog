@@ -1,9 +1,10 @@
 import React from "react"
+import {graphql, useStaticQuery} from "gatsby"
+import Img from "gatsby-image"
 import styled from "styled-components"
 
 import BigLogo from "../assets/big-logo.svg"
 import Arrow from "../assets/arrow.svg";
-import SplashBackground from "../images/splash-image.jpg"
 
 import {colors} from "../utils/colors"
 
@@ -19,7 +20,6 @@ const SplashPage = styled.div`
     font-family: 'Raleway';
     color: ${colors.light};
     font-weight: 300;
-    background-image: url(${SplashBackground});
     background-position: center;
     background-size: cover;
     padding: 80px 0;
@@ -67,12 +67,25 @@ const SplashOpener = styled.div`
 `
 
 const Splash = () => {
+    const data = useStaticQuery(graphql`
+        query SplashImage {
+                image: file(relativePath:{eq: "splash-image.jpg"}) {
+                  id
+                  childImageSharp {
+                    fluid(quality: 100) {
+                        ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
+              }
+    `)
     const hideSplashPage = (event) => {
         event.target.parentElement.parentElement.style.transform = `translateY(-100vh)`;
     };
     return (
         <SplashPage>
-            <BigLogo />
+            <Img style={{width: `100%`, height: `100%`, position: `absolute`, top: `0`, right: `0`, overflow: `hidden`, zIndex: `-1`}} fluid={data.image.childImageSharp.fluid} />
+            <BigLogo/>
             <Title>Food Blog</Title>
             <Quote>
                 <p className="quote" style={{fontSize: `19px`}}>“Taste is the feminine of genius.”</p>

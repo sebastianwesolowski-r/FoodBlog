@@ -15,7 +15,7 @@ const Page = styled.div`
   background-size: cover;
 `
 
-const Layout = ({ children, img }) => {
+const Layout = ({ children}) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -27,7 +27,7 @@ const Layout = ({ children, img }) => {
   `)
 
   return (
-    <Page style={{backgroundImage: `url(${img})`}}>
+    <Page>
       <Header siteTitle={data.site.siteMetadata.title} />
       <GlobalStyle />
       <main style={{marginTop: `100px`}}>{children}</main>
