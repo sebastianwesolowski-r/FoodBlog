@@ -50,14 +50,9 @@ const BlogFooter = styled.div`
   justify-content: space-between;
   width: 180px;
   height: 22px;
-  position: relative;
-  left: 0;
-  right: 0;
-  margin: 50px auto;
+  margin: auto;
+  margin-top: 90px;
   margin-bottom: 20px;
-  @media (max-width: 800px) {
-    top: 0;
-  }
 `
 
 const PreviewPosts = styled.div`
