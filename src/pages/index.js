@@ -51,14 +51,12 @@ const BlogFooter = styled.div`
   width: 180px;
   height: 22px;
   position: relative;
-  top: 100px;
   left: 0;
   right: 0;
-  margin: auto;
+  margin: 50px auto;
+  margin-bottom: 20px;
   @media (max-width: 800px) {
     top: 0;
-    margin-bottom: 20px;
-    margin-top: 30px;
   }
 `
 
